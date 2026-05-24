@@ -61,4 +61,7 @@ async def async_setup_entry(
     """Set up Amtron switches."""
 
     data = hass.data[DOMAIN][entry.entry_id]
+    if data.get("use_modbus", False):
+        return
+
     async_add_entities([AmtronAutoChargeSwitch(data["status_coordinator"], entry.entry_id), AmtronExcessEnergySwitch(data["status_coordinator"], entry.entry_id)])

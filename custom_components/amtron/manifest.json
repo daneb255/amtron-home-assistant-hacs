@@ -8,6 +8,8 @@
   "integration_type": "hub",
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/lephisto/amtron/issues",
-  "requirements": [],
+  "requirements": [
+    "pymodbus>=3.6.0,<4"
+  ],
   "version": "0.1.0"
 }

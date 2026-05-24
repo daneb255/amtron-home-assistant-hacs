@@ -9,7 +9,7 @@ from typing import Any
 
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .api import AmtronApiClient, AmtronApiError
+from .api import AmtronApiError
 from .const import DEFAULT_SCAN_INTERVAL_SECONDS, DEFAULT_STATS_SCAN_INTERVAL_SECONDS, STATISTICS_PERIODS
 
 
@@ -19,7 +19,7 @@ _LOGGER = logging.getLogger(__name__)
 class AmtronStatusCoordinator(DataUpdateCoordinator[dict[str, Any]]):
     """Coordinator that keeps the wallbox status up to date."""
 
-    def __init__(self, hass, client: AmtronApiClient, host: str) -> None:
+    def __init__(self, hass, client, host: str) -> None:
         self.client = client
         super().__init__(
             hass,
@@ -40,7 +40,7 @@ class AmtronStatusCoordinator(DataUpdateCoordinator[dict[str, Any]]):
 class AmtronStatisticsCoordinator(DataUpdateCoordinator[dict[str, Any]]):
     """Coordinator that keeps statistics up to date."""
 
-    def __init__(self, hass, client: AmtronApiClient, host: str) -> None:
+    def __init__(self, hass, client, host: str) -> None:
         self.client = client
         super().__init__(
             hass,

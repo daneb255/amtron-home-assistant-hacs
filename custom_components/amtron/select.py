@@ -63,5 +63,12 @@ async def async_setup_entry(
 ) -> None:
     """Set up Amtron select entities."""
 
-    coordinator = hass.data[DOMAIN][entry.entry_id]["status_coordinator"]
-    async_add_entities([AmtronModeSelect(coordinator, entry.entry_id), AmtronChargeControlSelect(coordinator, entry.entry_id)])
+    data = hass.data[DOMAIN][entry.entry_id]
+    coordinator = data["status_coordinator"]
+    use_modbus = data.get("use_modbus", False)
+
+    entities: list[SelectEntity] = [AmtronChargeControlSelect(coordinator, entry.entry_id)]
+    if not use_modbus:
+        entities.insert(0, AmtronModeSelect(coordinator, entry.entry_id))
+
+    async_add_entities(entities)

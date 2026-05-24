@@ -4,6 +4,7 @@ from __future__ import annotations
 
 DEFAULT_BASE_PATH = "/MHCP/1.0"
 DEFAULT_PORT = 25000
+DEFAULT_MODBUS_PORT = 502
 DEFAULT_SCAN_INTERVAL_SECONDS = 30
 DEFAULT_STATS_SCAN_INTERVAL_SECONDS = 3600
 
@@ -17,6 +18,7 @@ CONF_HOST = "host"
 CONF_NAME = "name"
 CONF_PIN2 = "pin2"
 CONF_PORT = "port"
+CONF_USE_MODBUS = "use_modbus"
 
 STATISTICS_PERIODS = ["Day", "Week", "Month", "Hyear", "Year", "Annual"]
 CHARGE_CONTROL_STATES = ["Continue", "Pause", "Start", "Terminate"]

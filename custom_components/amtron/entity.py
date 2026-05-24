@@ -27,6 +27,10 @@ class AmtronBaseEntity(CoordinatorEntity):
         return self.hass_data["client"]
 
     @property
+    def use_modbus(self) -> bool:
+        return bool(self.hass_data.get("use_modbus", False))
+
+    @property
     def status_data(self) -> dict[str, Any]:
         return self.hass_data["status_coordinator"].data or {}
 

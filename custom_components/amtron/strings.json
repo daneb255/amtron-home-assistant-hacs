@@ -11,12 +11,33 @@
           "pin2": "PIN2",
           "name": "Name",
           "port": "Port",
+          "base_path": "Base path",
+          "use_modbus": "Use Modbus-TCP"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to reach the wallbox.",
+      "devkey_required_http": "DevKey / APP-PIN is required when Modbus-TCP is disabled."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Amtron Wallbox",
+        "description": "Update transport and connection settings. In Modbus-TCP mode, only supported controls are shown.",
+        "data": {
+          "use_modbus": "Use Modbus-TCP",
+          "devkey": "DevKey / APP-PIN",
+          "pin2": "PIN2",
+          "port": "Port",
           "base_path": "Base path"
         }
       }
     },
     "error": {
-      "cannot_connect": "Unable to reach the wallbox."
+      "cannot_connect": "Unable to reach the wallbox.",
+      "devkey_required_http": "DevKey / APP-PIN is required when Modbus-TCP is disabled."
     }
   }
 }

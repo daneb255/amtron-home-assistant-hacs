@@ -49,10 +49,11 @@ Eine HACS Custom Integration für die Mennekes Amtron Wallbox mit Netzwerkanbind
 2. Klicke **Create Integration** und suche nach "Amtron"
 3. Fülle die Einstellungen aus:
    - **Host / IP**: IP-Adresse oder Hostname der Wallbox (z. B. `192.168.1.100`)
-   - **DevKey / APP-PIN**: Findest du in der Gerätedokumentation (Papier)
+   - **Use Modbus-TCP**: Aktivieren, wenn Daten über Modbus (Port 502) gelesen werden sollen
+   - **DevKey / APP-PIN**: Nur erforderlich, wenn **Use Modbus-TCP** deaktiviert ist
    - **PIN2** (Optional): Nur nötig, wenn du Whitelist/ChargeRecords verwenden willst
    - **Name**: Ein Name für die Wallbox in Home Assistant
-   - **Port**: Standard: `25000` (ändern nur wenn nötig)
+   - **Port**: Standard HTTP: `25000`, Standard Modbus: `502`
    - **Base Path**: Standard: `/MHCP/1.0` (ändern nur wenn nötig)
 
 4. Bestätige die Konfiguration
@@ -78,6 +79,8 @@ Eine HACS Custom Integration für die Mennekes Amtron Wallbox mit Netzwerkanbind
 - **Energy Demand** (Number): Wunsch-Lademenge in Wh
 - **Remaining Time** (Number): Verbleibende Zeit in Minuten
 - **Solar Price** (Number): Preis für Solarenergie
+
+Hinweis: Im Modbus-Modus sind nur Funktionen aktiv, die laut Modbus-Registertabelle schreibbar sind (z. B. Charging Control, Remote Current).
 
 ### Services
 

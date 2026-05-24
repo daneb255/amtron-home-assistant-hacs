@@ -45,7 +45,9 @@ async def async_setup_entry(
 ) -> None:
     """Set up Amtron numbers."""
 
-    coordinator = hass.data[DOMAIN][entry.entry_id]["status_coordinator"]
+    data = hass.data[DOMAIN][entry.entry_id]
+    coordinator = data["status_coordinator"]
+    use_modbus = data.get("use_modbus", False)
 
     def _getter(source: str, field: str):
         def inner(data: dict[str, Any]):
@@ -68,12 +70,18 @@ async def async_setup_entry(
     async def _set_solar_price(client, value):
         await client.set_home_manager({"Permanent": True, "NrgDemand": None, "ExcessNrg": None, "SolarPrice": value, "RemTime": None})
 
-    async_add_entities(
-        [
-            AmtronNumberEntity(coordinator, entry.entry_id, key="remote-current", name="Remote Current", unit="A", minimum=0, maximum=32, step=1, getter=_getter("charge_data", "RemoteCurr"), setter=_set_remote_curr),
-            AmtronNumberEntity(coordinator, entry.entry_id, key="battery-capacity", name="Battery Capacity", unit="Wh", minimum=0, maximum=200000, step=100, getter=_getter("device_info", "Battery"), setter=_set_battery),
-            AmtronNumberEntity(coordinator, entry.entry_id, key="energy-demand", name="Energy Demand", unit="Wh", minimum=0, maximum=200000, step=100, getter=_getter("charge_data", "NrgDemand"), setter=_set_energy_demand),
-            AmtronNumberEntity(coordinator, entry.entry_id, key="remaining-time", name="Remaining Time", unit="min", minimum=0, maximum=10080, step=1, getter=_getter("charge_data", "RemTime"), setter=_set_rem_time),
-            AmtronNumberEntity(coordinator, entry.entry_id, key="solar-price", name="Solar Price", unit="0.1 ct/kWh", minimum=0, maximum=1000, step=1, getter=_getter("charge_data", "SolarPrice"), setter=_set_solar_price),
-        ]
-    )
+    entities: list[AmtronNumberEntity] = [
+        AmtronNumberEntity(coordinator, entry.entry_id, key="remote-current", name="Remote Current", unit="A", minimum=0, maximum=32, step=1, getter=_getter("charge_data", "RemoteCurr"), setter=_set_remote_curr),
+    ]
+
+    if not use_modbus:
+        entities.extend(
+            [
+                AmtronNumberEntity(coordinator, entry.entry_id, key="battery-capacity", name="Battery Capacity", unit="Wh", minimum=0, maximum=200000, step=100, getter=_getter("device_info", "Battery"), setter=_set_battery),
+                AmtronNumberEntity(coordinator, entry.entry_id, key="energy-demand", name="Energy Demand", unit="Wh", minimum=0, maximum=200000, step=100, getter=_getter("charge_data", "NrgDemand"), setter=_set_energy_demand),
+                AmtronNumberEntity(coordinator, entry.entry_id, key="remaining-time", name="Remaining Time", unit="min", minimum=0, maximum=10080, step=1, getter=_getter("charge_data", "RemTime"), setter=_set_rem_time),
+                AmtronNumberEntity(coordinator, entry.entry_id, key="solar-price", name="Solar Price", unit="0.1 ct/kWh", minimum=0, maximum=1000, step=1, getter=_getter("charge_data", "SolarPrice"), setter=_set_solar_price),
+            ]
+        )
+
+    async_add_entities(entities)
