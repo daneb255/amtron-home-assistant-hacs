@@ -21,7 +21,7 @@ class AmtronAutoChargeSwitch(AmtronBaseEntity, SwitchEntity):
 
     @property
     def is_on(self) -> bool | None:
-        return self._device_info.get("AutoChg")
+        return (self.status_data.get("charge_data", {}) or {}).get("AutoChg")
 
     async def async_turn_on(self, **kwargs) -> None:
         await self.client.set_charge_data({"Permanent": True, "RemoteCurr": None, "AutoChg": True, "ChgState": None, "Uid": None})
