@@ -1,0 +1,22 @@
+{
+  "title": "Amtron Wallbox",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Amtron Wallbox",
+        "description": "Connect to your local Amtron wallbox.",
+        "data": {
+          "host": "Host or IP",
+          "devkey": "DevKey / APP-PIN",
+          "pin2": "PIN2",
+          "name": "Name",
+          "port": "Port",
+          "base_path": "Base path"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to reach the wallbox."
+    }
+  }
+}

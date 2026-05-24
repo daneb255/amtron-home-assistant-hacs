@@ -1,0 +1,71 @@
+# Amtron services
+
+add_whitelist:
+  name: Add RFID Tag to Whitelist
+  description: Add a new RFID tag to the wallbox whitelist
+  fields:
+    device_id:
+      name: Device ID
+      description: The Amtron device ID
+      required: true
+      selector:
+        device:
+          integration: amtron
+    uid:
+      name: RFID UID
+      description: The UID of the RFID tag to add
+      example: "04AB12CD34EF56"
+      required: true
+      selector:
+        text:
+    name:
+      name: Name
+      description: Optional name for the RFID tag
+      example: "My Car"
+      selector:
+        text:
+
+remove_whitelist:
+  name: Remove RFID Tag from Whitelist
+  description: Remove an RFID tag from the wallbox whitelist
+  fields:
+    device_id:
+      name: Device ID
+      description: The Amtron device ID
+      required: true
+      selector:
+        device:
+          integration: amtron
+    uid:
+      name: RFID UID
+      description: The UID of the RFID tag to remove
+      example: "04AB12CD34EF56"
+      required: true
+      selector:
+        text:
+
+get_chargerecords:
+  name: Get Charge Records
+  description: Retrieve charging session records from the wallbox
+  fields:
+    device_id:
+      name: Device ID
+      description: The Amtron device ID
+      required: true
+      selector:
+        device:
+          integration: amtron
+    start_time:
+      name: Start Time
+      description: Unix timestamp of the start time
+      example: 1609459200
+      selector:
+        number:
+          min: 0
+    end_time:
+      name: End Time
+      description: Unix timestamp of the end time
+      example: 1609545600
+      selector:
+        number:
+          min: 0

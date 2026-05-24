@@ -1,0 +1,7 @@
+{
+  "name": "Amtron Wallbox",
+  "homeassistant": "2024.1.0",
+  "documentation": "https://github.com/lephisto/amtron",
+  "requirements": [],
+  "version": "0.1.0"
+}
